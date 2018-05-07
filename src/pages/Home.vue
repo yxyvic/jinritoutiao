@@ -1,7 +1,7 @@
 <template lang="html">
   <div>
     <header-bar>
-      <div slot="Home">
+      <div slot="homeHeader">
         <mu-icon value="mail" class="mail" color="white" :size="30"/>
         <span class="logo">今日头条
           <mu-icon value="refresh" color="white"/>
@@ -18,7 +18,7 @@
     </ul>
     <transition>
     <ul class="newsContent">
-      <router-link :to="{ name: '', params: {} }" v-for="(val,index) in listnews" :key="index"  class="newsDetaile">
+      <router-link :to="{ name: 'newsDetail', params: {id:val.tag_id} }" v-for="(val,index) in listnews" :key="index"  class="newsDetail">
         <p class="title">{{val.title}}</p>
         <div class="bottomInfo clearfix">
          <!-- <img v-for="(img,index) in val.image_list" alt="加载失败"  :src="img.url">  -->
@@ -30,8 +30,8 @@
       </router-link>
     </ul>
   </transition>
-  <div class="pulldownload">
-        点击加载更多
+  <div class="noMoreNews">
+        没有更多了！
     </div>
     <bottom-nav/>
   </div>
@@ -40,8 +40,8 @@
 <script>
 import HeaderBar from '@/components/HeaderBar'
 import BottomNav from '@/components/BottomNav'
-import jsonp from 'jsonp'
-import axios from 'axios'
+// import jsonp from 'jsonp'
+// import axios from 'axios'
 import {
   mapGetters,
   mapActions,
@@ -211,14 +211,14 @@ export default {
   margin-top: 2.3rem;
   width: 100%;
 }
-.newsDetaile {
+.newsDetail {
   width: 94%;
   display: block;
   position: relative;
   margin: 0 auto;
   padding-bottom: 0.15rem;
 }
-.newsContent .newsDetaile:after {
+.newsContent .newsDetail:after {
   content:"";
   box-sizing:border-box;
 	position:absolute;
@@ -228,16 +228,16 @@ export default {
   border-top:1px solid #ccc
 }
 @media screen and (-webkit-min-device-pixel-ratio:3) {
-	.newsContent .newsDetaile:after {
+	.newsContent .newsDetail:after {
 	transform:scaleY(.33333)
   }
 }
 @media screen and (-webkit-min-device-pixel-ratio:2) {
-	.newsContent .newsDetaile:after {
+	.newsContent .newsDetail:after {
 	transform:scaleY(.5)
   }
 }
-.newsContent .newsDetaile .title {
+.newsContent .newsDetail .title {
 	font-size:16px;
 	font-weight:700;
 	color:#000;
@@ -252,11 +252,11 @@ img {
 .writer {
   color: #000;
 }
-.newsContent .newsDetaile .bottomInfo {
+.newsContent .newsDetail .bottomInfo {
 	font-size:10px;
 	margin-top:.15rem
 }
-.pulldownload {
+.noMoreNews {
   margin-bottom: 1.3rem;
   width: 100%;
   height: 1.5rem;

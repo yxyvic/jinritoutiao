@@ -1,6 +1,7 @@
 <template lang="html">
   <header>
-    <slot name="Home"></slot>
+    <slot name="homeHeader"></slot>
+    <slot name="newsDetailHeader"></slot>
   </header>
 </template>
 
