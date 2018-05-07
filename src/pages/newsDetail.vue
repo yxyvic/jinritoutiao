@@ -11,7 +11,8 @@
 <script>
 import HeaderBar from '@/components/HeaderBar'
 export default {
-  name: 'newsDetail',
+  //name只有作为组件选项时起作用，允许组件模板递归地调用自身，一般情况没有用，不等同于组件标签名，组件使用的模板名为其他组件import时命得名
+  // name: 'newsDetail',
   components: {HeaderBar}
 }
 </script>
