@@ -20,6 +20,8 @@ const state = {     //等同于组件中的data属性
         news_world: [],
         news_fashion: []
     },
+  detailNews:'',
+  newsTitle: ''
 };
 
 export default new Vuex.Store({

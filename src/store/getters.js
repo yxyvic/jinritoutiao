@@ -3,4 +3,6 @@
 // 等同于组件Vue实例中的computed属性
 export default {
   list: state => state.list,   //此处将state.list 赋值给计算属性list，供其他组件使用，通过mapGetters辅助函数调用
+  detailNews: state => state.detailNews,
+  newsTitle: state => state.newsTitle
 }

@@ -11,4 +11,8 @@ export default {
       state.list[news.kind].push(news.data[item]);       //将对应类型新闻的每一项存入state中的list对应类型数组中
     }
   },
+  [type.GET_DETAILNEWS](state,news) {
+    state.detailNews = news.data.content;
+    state.newsTitle = news.data.title;
+  }
 }
