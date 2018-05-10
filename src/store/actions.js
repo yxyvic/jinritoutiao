@@ -8,7 +8,7 @@ export default {
   //在其他组件执行的是actions
   getNews({commit,state}, news) {
     if (news.kind) {     //当有新闻类型时执行添加新闻
-    jsonp('http://m.toutiao.com/list/?tag=' + news.kind + '&ac=wap&count=20&format=json_raw&as=A125A8CEDCF8987&cp=58EC18F948F79E1&min_behot_time=' + parseInt((new Date().getTime()) / 1000),
+    jsonp('https://m.toutiao.com/list/?tag=' + news.kind + '&ac=wap&count=20&format=json_raw&as=A125A8CEDCF8987&cp=58EC18F948F79E1&min_behot_time=' + parseInt((new Date().getTime()) / 1000),
       function(err, res) {
         commit(type.GET_NEWSLIST, {     //commit中第二个参数对象是传入的载荷，为mutations中函数中的额外参数 第一个参数为固定提交的mutation类型  type.GET_NEWSLIST对应'GET_NEWSLIST'
           data: res.data,

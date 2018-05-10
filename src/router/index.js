@@ -6,7 +6,7 @@ import newsDetail from '@/pages/newsDetail'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
+  // mode: 'history',
   routes: [
     {
       path: '/home/:type',     //首页不同新闻类型
@@ -24,11 +24,11 @@ export default new Router({
     // },
     {
       path: '/',
-      redirect: '/home/all?type=__all__'
+      redirect: './home/all?type=__all__'
     },
     {           // 路由重定向
       path: '/home',
-      redirect: '/home/all?type=__all__'
+      redirect: './home/all?type=__all__'
     }
   ],
   scrollBehavior (to,from,savedPosition) {

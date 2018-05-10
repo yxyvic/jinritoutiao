@@ -2,6 +2,8 @@
 
 > jinritoutiao-vue
 
+## 在线地址
+[预览地址](https://yxyvic.github.io/jinritoutiao)
 ## Build Setup
 
 ``` bash

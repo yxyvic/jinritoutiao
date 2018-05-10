@@ -7,6 +7,10 @@ import store from './store'
 
 import animate from 'animate.css'
 import VueLazyload  from 'vue-lazyload'
+// Vue.use(VueLazyload,{   //打包部署时使用同级相对路径
+//   error: './static/images/imgerror.jpg',
+//   loading: './static/images/imgloading.gif'
+// })
 Vue.use(VueLazyload,{
   error: '../static/images/imgerror.jpg',
   loading: '../static/images/imgloading.gif'
