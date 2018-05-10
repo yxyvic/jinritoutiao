@@ -20,12 +20,17 @@
     <ul class="newsContent">
       <router-link :to="{ name: 'newsDetail', params: {id:val.tag_id} }" v-for="(val,index) in listnews" :key="index"  class="newsDetail">
         <p class="title">{{val.title}}</p>
-        <div class="bottomInfo clearfix">
-         <!-- <img v-for="(img,index) in val.image_list" alt="加载失败"  :src="img.url">  -->
-          <img v-for="(img,index) in val.image_list" alt="加载失败"  v-lazy="img.url">   <!-- 懒加载图片 -->
-          <div class="">
+        <div>
+          <!-- <img v-for="(img,index) in val.image_list" alt="加载失败"  :src="img.url">  -->
+           <img v-for="(img,index) in val.image_list" alt="加载失败"  v-lazy="img.url">   <!-- 懒加载图片 -->
+           <div class="bottomInfo clearfix">
+            <span class="sticklabel" v-show="val.label==='置顶'">置顶</span>
+            <span class="adlabel" v-show="val.label==='广告'">广告</span>
+            <mu-icon value="whatshot" color="red" :size="14" class="hotlabel" v-show="val.hot===1"/>
             <span class="writer">{{val.media_name}}</span>
-          </div>
+            <span class="comment_count">评论&nbsp;{{val.comment_count}}</span>
+            <span class="datetime">{{val.datetime|timeFromNow}}</span>
+        </div>
         </div>
       </router-link>
     </ul>
@@ -40,6 +45,7 @@
 <script>
 import HeaderBar from '@/components/HeaderBar'
 import BottomNav from '@/components/BottomNav'
+import moment from 'moment'
 // import jsonp from 'jsonp'
 // import axios from 'axios'
 import {
@@ -67,7 +73,7 @@ export default {
   mounted() { //元素挂载时，初始化执行获取type为_all_的新闻
     this.getNews({
       kind: '__all__'
-    })
+    });
   },
   methods: {
     ...mapActions([ //组件中使用分发Action，mapActions 辅助函数将组件的 methods 映射为store.dispatch， 在组件中使用的是actions，actions中再commit mutations改变state的值
@@ -88,6 +94,14 @@ export default {
     },
     'listnews': function(val, oldval) {
       console.log(val, oldval);
+    }
+  },
+  filters: {
+    timeFromNow: function(starttime){
+      if (!starttime) {
+        return ''
+      }
+      return moment(starttime).fromNow();     //使用moment计算传入时间距离当前时刻过去时间差
     }
   },
   data() {
@@ -244,17 +258,34 @@ export default {
 	padding-top:.2rem;
 	padding-bottom:.15rem
 }
+.newsContent .newsDetail .bottomInfo {
+	font-size:10px;
+	margin-top:.15rem
+}
 img {
   width: 31.1%;
   margin-right: 0.21rem;
   height: 2.3rem;
 }
-.writer {
-  color: #000;
+.sticklabel, .adlabel{
+  display: inline-block;
+  height: 0.4rem;
+  padding-left: 3px;
+  padding-right: 3px;
+  line-height: 0.4rem;
+  color: #f85959;
+  text-align: center;
+  border: 1px solid rgba(248, 89, 89, 0.5);
 }
-.newsContent .newsDetail .bottomInfo {
-	font-size:10px;
-	margin-top:.15rem
+.writer, .comment_count{
+  color: #555;
+}
+.datetime{
+  color: #555;
+  float: right;
+}
+.hotlabel{
+  vertical-align: text-top;
 }
 .noMoreNews {
   margin-bottom: 1.3rem;
