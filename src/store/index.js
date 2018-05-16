@@ -20,8 +20,13 @@ const state = {     //等同于组件中的data属性
         news_world: [],
         news_fashion: []
     },
-  detailNews:'',
-  newsTitle: ''
+  detailNews:{
+    title:'',
+    media_user:{
+      avatar_url:'',     //需将组件中用到的数据都列出来初始化一遍，否则在渲染使用数据时会出现undefined
+      screen_name:''
+    }
+  },
 };
 
 export default new Vuex.Store({

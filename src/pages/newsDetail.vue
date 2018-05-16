@@ -2,14 +2,21 @@
   <div class="">
     <header-bar class="detailHeader">
       <div slot="newsDetailHeader">
+       <mu-icon value="arrow_back_ios" class="backarrow" :size="30" @click.native="goBack"/>    <!-- 组件中v-on只能绑定自定义事件，绑定原生事件需要加上.native修饰符 -->
         新闻详情
+        <mu-icon value="more_horiz" class="more_horiz" :size="30"/>
       </div>
     </header-bar>
     <div class="newsDetailBody">
       <div class="newstitle">
-        <h1>{{newsTitle}}</h1>
+        <h1>{{detailNews.title}}</h1>
       </div>
-      <div class="newscontent" v-html="detailNews">
+      <div class="media_user">
+        <span><img :src="detailNews.media_user.avatar_url" class="authorImg"></span>
+        <span class="screen_name">{{detailNews.media_user.screen_name}}</span>
+        <span class="publish_time">{{publishTime}}</span>
+      </div>
+      <div class="newscontent" v-html="detailNews.content">
       </div>
     </div>
     </div>
@@ -31,15 +38,20 @@ export default {
   computed: {
     ...mapGetters([ //使用对象展开运算符将此对象混入到外部对象中 将getters中的对象映射到计算属性中
       'detailNews',
-      'newsTitle',
-    ])
+    ]),
+    publishTime: function() {
+      return new Date(this.detailNews.publish_time*1000).toLocaleString('chinese',{hour12:false})
+    },
   },
   methods: {
     ...mapActions([
       'getNewsDetail'
-    ])
+    ]),
+    goBack() {
+      this.$router.back()     //router实例方法，router.go(n) router.back()后退路由，组件中使用this.$router.back()调用
+    }
   },
-  created(){    //初始第一次进入界面时获取第一次新闻详情信息
+  mounted(){    //初始第一次进入界面时获取第一次新闻详情信息
     if (this.$route.params.id) {
       this.getNewsDetail({
         tag_id: this.$route.params.id
@@ -85,6 +97,40 @@ export default {
 	.detailHeader::after {
 	transform:scaleY(.5)
   }
+}
+.backarrow{
+  float: left;
+  line-height: 1.2rem;
+  margin-left: 0.2rem;
+}
+.more_horiz{
+  float: right;
+  line-height: 1.2rem;
+  margin-right: 0.2rem;
+}
+.media_user{
+  position: relative;
+  margin-top: 10px;
+}
+.authorImg{
+  height: 1rem;
+  width: 1rem;
+  border-radius: 50%;
+}
+.screen_name{
+  position: absolute;
+  left: 1.2rem;
+  top: 2px;
+  font-weight: 600;
+  color: #000;
+  font-size: 14px;
+}
+.publish_time{
+  position: absolute;
+  left: 1.2rem;
+  bottom: 3px;
+  font-size: 11px;
+  color: #999;
 }
 .newsDetailBody{
   margin-top: 1.4rem;

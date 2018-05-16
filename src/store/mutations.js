@@ -12,7 +12,6 @@ export default {
     }
   },
   [type.GET_DETAILNEWS](state,news) {
-    state.detailNews = news.data.content;
-    state.newsTitle = news.data.title;
+    state.detailNews = news.data;
   }
 }
